@@ -2,8 +2,9 @@ intercom-java
 =============
 
 A Java client library for [Intercom web service](https://www.intercom.io/).
-
 This is just a tiny wrapper around Intercom API, please see [Intercom API Documentation](https://api.intercom.io/docs) for detail.
+
+[![Build Status](https://travis-ci.org/oohira/intercom-java.png?branch=master)](https://travis-ci.org/oohira/intercom-java)
 
 ## Installation
 
