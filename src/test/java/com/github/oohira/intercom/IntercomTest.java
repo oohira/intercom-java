@@ -1,6 +1,7 @@
 package com.github.oohira.intercom;
 
 import com.github.oohira.intercom.model.Company;
+import com.github.oohira.intercom.model.Impression;
 import com.github.oohira.intercom.model.Note;
 import com.github.oohira.intercom.model.Tag;
 import com.github.oohira.intercom.model.User;
