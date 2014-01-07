@@ -44,6 +44,7 @@ public class Intercom {
     private static final String API_ENDPOINT_URL = "https://api.intercom.io/v1";
     private static final String USERS_API_URL = API_ENDPOINT_URL + "/users";
     private static final String NOTES_API_URL = API_ENDPOINT_URL + "/users/notes";
+    private static final String IMPRESSIONS_API_URL = API_ENDPOINT_URL + "/users/impressions";
     private static final String TAGGING_API_URL = API_ENDPOINT_URL + "/tags";
 
     private static final String DEBUG_KEY = "intercom.debug";
@@ -409,6 +410,23 @@ public class Intercom {
         String response = httpPost(NOTES_API_URL, json);
 
         return deserialize(response, Note.class);
+    }
+
+    /**
+     * Creates an impression.
+     *
+     * @param impression an impression object.
+     * @return the response object.
+     * @throws IntercomException when some error occurred.
+     * @see <a href="https://api.intercom.io/docs#creating_an_impression">
+     *     Intercom API Documentation: Creating an Impression</a>
+     */
+    public Impression createImpression(final Impression impression) throws IntercomException {
+        String json = serialize(impression);
+        String response = httpPost(IMPRESSIONS_API_URL, json);
+
+        return deserialize(response, Impression.class);
+
     }
 
     private String httpGet(final String url, final Map<String, String> params) throws IntercomException {

@@ -89,7 +89,16 @@ note.setBody("This is the text of my note.");
 intercom.createNote(note);
 ```
 
+#### Impressions
+
+```java
+Impression impression = new Impression();
+impression.setUserId("abc123");
+impression.setUserIp("127.0.0.1");
+intercom.createImpression(impression);
+```
+
 ## Limitations
 
-* Impressions API and Message Threads API are not supported yet. Now implementing.
+* Message Threads API is not supported yet. Now implementing.
 

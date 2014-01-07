@@ -351,6 +351,21 @@ public class IntercomTest {
     }
 
     @Test
+    public void createImpression() {
+        Impression impression = new Impression();
+        impression.setUserId("user1");
+        impression.setUserIp("127.0.0.1");
+        impression.setUserAgent("Anonymous User Agent");
+        impression.setCurrentUrl("http://localhost/example/");
+
+        Impression created = this.intercom.createImpression(impression);
+        assertThat(created.getUnreadMessages(), is(0));
+        User user = this.intercom.getUserById("user1");
+        assertThat(user.getLastSeenIp(), is("127.0.0.1"));
+        assertThat(user.getLastSeenUserAgent(), is("Anonymous User Agent"));
+    }
+
+    @Test
     public void badRequest_400() {
         try {
             this.intercom.getTag("");
