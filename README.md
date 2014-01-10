@@ -8,13 +8,11 @@ This is just a tiny wrapper around Intercom API, please see [Intercom API Docume
 
 ## Installation
 
-Not available yet, but maybe comming soon to the Maven Central Repository. :-p
-
 ```xml
 <dependency>
    <groupId>com.github.oohira</groupId>
    <artifactId>intercom-java</artifactId>
-   <version>?.?.?</version>
+   <version>0.0.1</version>
 </dependency>
 ```
 
