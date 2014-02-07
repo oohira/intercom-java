@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Intercom-java : A Java client library for Intercom web service" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Intercom-java</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/oohira/intercom-java">View on GitHub</a>
+
+          <h1 id="project_title">Intercom-java</h1>
+          <h2 id="project_tagline">A Java client library for Intercom web service</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/oohira/intercom-java/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/oohira/intercom-java/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>A Java client library for <a href="https://www.intercom.io/">Intercom web service</a>.
+This is just a tiny wrapper around Intercom API, please see <a href="https://api.intercom.io/docs">Intercom API Documentation</a> for detail.</p>
+
+<p><a href="https://travis-ci.org/oohira/intercom-java"><img src="https://travis-ci.org/oohira/intercom-java.png?branch=master" alt="Build Status"></a></p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;dependency&gt;</span>
+   <span class="nt">&lt;groupId&gt;</span>com.github.oohira<span class="nt">&lt;/groupId&gt;</span>
+   <span class="nt">&lt;artifactId&gt;</span>intercom-java<span class="nt">&lt;/artifactId&gt;</span>
+   <span class="nt">&lt;version&gt;</span>0.0.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+
+<h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<ul>
+<li>Google GSON (<a href="https://code.google.com/p/google-gson/">https://code.google.com/p/google-gson/</a>)</li>
+<li>Apache Commons Codec (<a href="http://commons.apache.org/proper/commons-codec/">http://commons.apache.org/proper/commons-codec/</a>)</li>
+</ul><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>This software is released under the MIT License, see <a href="https://github.com/oohira/intercom-java/blob/master/LICENSE.txt">LICENSE.txt</a>.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h4>
+<a name="initialization" class="anchor" href="#initialization"><span class="octicon octicon-link"></span></a>Initialization</h4>
+
+<div class="highlight highlight-java"><pre><span class="n">Intercom</span> <span class="n">intercom</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intercom</span><span class="o">(</span><span class="s">"APP_ID"</span><span class="o">,</span> <span class="s">"API_KEY"</span><span class="o">);</span>
+</pre></div>
+
+<h4>
+<a name="users" class="anchor" href="#users"><span class="octicon octicon-link"></span></a>Users</h4>
+
+<div class="highlight highlight-java"><pre><span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+<span class="n">user</span><span class="o">.</span><span class="na">setUserId</span><span class="o">(</span><span class="s">"abc123"</span><span class="o">);</span>
+<span class="n">user</span><span class="o">.</span><span class="na">setEmail</span><span class="o">(</span><span class="s">"john.doe@example.com"</span><span class="o">);</span>
+<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"John Doe"</span><span class="o">);</span>
+<span class="n">Company</span> <span class="n">company</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Company</span><span class="o">();</span>
+<span class="n">company</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">"company1"</span><span class="o">);</span>
+<span class="n">company</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"Anonymous Company"</span><span class="o">);</span>
+<span class="n">user</span><span class="o">.</span><span class="na">setCompanies</span><span class="o">(</span><span class="k">new</span> <span class="n">Company</span><span class="o">[]{</span><span class="n">company</span><span class="o">});</span>
+<span class="n">intercom</span><span class="o">.</span><span class="na">createUser</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">intercom</span><span class="o">.</span><span class="na">getUserById</span><span class="o">(</span><span class="s">"abc123"</span><span class="o">);</span>
+<span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">customData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
+<span class="n">customData</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"custom_data_1"</span><span class="o">,</span> <span class="s">"test"</span><span class="o">);</span>
+<span class="n">customData</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"custom_data_2"</span><span class="o">,</span> <span class="mi">7</span><span class="o">);</span>
+<span class="n">user</span><span class="o">.</span><span class="na">setCustomData</span><span class="o">(</span><span class="n">customData</span><span class="o">);</span>
+<span class="n">intercom</span><span class="o">.</span><span class="na">updateUser</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="k">for</span> <span class="o">(</span><span class="n">User</span> <span class="n">user</span> <span class="o">:</span> <span class="n">intercom</span><span class="o">.</span><span class="na">getUsers</span><span class="o">())</span> <span class="o">{</span>
+    <span class="c1">// do something</span>
+<span class="o">}</span>
+</pre></div>
+
+<h4>
+<a name="tags" class="anchor" href="#tags"><span class="octicon octicon-link"></span></a>Tags</h4>
+
+<div class="highlight highlight-java"><pre><span class="n">Tag</span> <span class="n">tag</span> <span class="o">=</span> <span class="n">intercom</span><span class="o">.</span><span class="na">getTag</span><span class="o">(</span><span class="s">"Free Trial"</span><span class="o">);</span>
+<span class="n">tag</span><span class="o">.</span><span class="na">setUserIds</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">"abc123"</span><span class="o">,</span> <span class="s">"def456"</span><span class="o">});</span>
+<span class="n">tag</span><span class="o">.</span><span class="na">setTagOrUntag</span><span class="o">(</span><span class="s">"tag"</span><span class="o">);</span>
+<span class="n">intercom</span><span class="o">.</span><span class="na">updateTag</span><span class="o">(</span><span class="n">tag</span><span class="o">);</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="n">Tag</span> <span class="n">tag</span> <span class="o">=</span> <span class="n">intercom</span><span class="o">.</span><span class="na">getTag</span><span class="o">(</span><span class="s">"Free Trial"</span><span class="o">);</span>
+<span class="n">tag</span><span class="o">.</span><span class="na">setUserIds</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">"abc123"</span><span class="o">});</span>
+<span class="n">tag</span><span class="o">.</span><span class="na">setTagOrUntag</span><span class="o">(</span><span class="s">"untag"</span><span class="o">);</span>
+<span class="n">intercom</span><span class="o">.</span><span class="na">updateTag</span><span class="o">(</span><span class="n">tag</span><span class="o">);</span>
+</pre></div>
+
+<h4>
+<a name="notes" class="anchor" href="#notes"><span class="octicon octicon-link"></span></a>Notes</h4>
+
+<div class="highlight highlight-java"><pre><span class="n">Note</span> <span class="n">note</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Note</span><span class="o">();</span>
+<span class="n">note</span><span class="o">.</span><span class="na">setEmail</span><span class="o">(</span><span class="s">"john.doe@example.com"</span><span class="o">);</span>
+<span class="n">note</span><span class="o">.</span><span class="na">setBody</span><span class="o">(</span><span class="s">"This is the text of my note."</span><span class="o">);</span>
+<span class="n">intercom</span><span class="o">.</span><span class="na">createNote</span><span class="o">(</span><span class="n">note</span><span class="o">);</span>
+</pre></div>
+
+<h4>
+<a name="impressions" class="anchor" href="#impressions"><span class="octicon octicon-link"></span></a>Impressions</h4>
+
+<div class="highlight highlight-java"><pre><span class="n">Impression</span> <span class="n">impression</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Impression</span><span class="o">();</span>
+<span class="n">impression</span><span class="o">.</span><span class="na">setUserId</span><span class="o">(</span><span class="s">"abc123"</span><span class="o">);</span>
+<span class="n">impression</span><span class="o">.</span><span class="na">setUserIp</span><span class="o">(</span><span class="s">"127.0.0.1"</span><span class="o">);</span>
+<span class="n">intercom</span><span class="o">.</span><span class="na">createImpression</span><span class="o">(</span><span class="n">impression</span><span class="o">);</span>
+</pre></div>
+
+<h2>
+<a name="limitations" class="anchor" href="#limitations"><span class="octicon octicon-link"></span></a>Limitations</h2>
+
+<ul>
+<li>Message Threads API is not supported yet. Now implementing.</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Intercom-java maintained by <a href="https://github.com/oohira">oohira</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-47877506-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
