@@ -1,5 +1,6 @@
 package com.github.oohira.intercom;
 
+import com.github.oohira.intercom.model.Company;
 import com.github.oohira.intercom.model.ErrorResponse;
 import com.github.oohira.intercom.model.Impression;
 import com.github.oohira.intercom.model.Note;
@@ -12,10 +13,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.BufferedReader;
@@ -95,6 +98,35 @@ public class Intercom {
                 return new JsonPrimitive(src.getTime() / 1000);
             }
         });
+		builder.registerTypeAdapter(Company.class, new JsonSerializer<Company>() {
+			@Override
+			public JsonElement serialize(Company company, Type arg1, JsonSerializationContext arg2) {
+				JsonObject result = new JsonObject();
+				result.add("id", new JsonPrimitive(company.getId()));
+				if (company.getName() != null)
+					result.add("name", new JsonPrimitive(company.getName()));
+				if (company.getCreatedAt() != null)
+					result.add("created_at", new JsonPrimitive(company.getCreatedAt().getTime() / 1000));
+				if (company.getPlan() != null)
+					result.add("plan", new JsonPrimitive(company.getPlan()));
+				if (company.getMonthlySpend() != null)
+					result.add("monthly_spend", new JsonPrimitive(company.getMonthlySpend()));
+				Map<String, Object> customData = company.getCustomData();
+				if (customData != null) {
+					for (Map.Entry<String, Object> entry : customData.entrySet()) {
+						if (entry.getValue().getClass().equals(String.class))
+							result.add(entry.getKey(), new JsonPrimitive((String) entry.getValue()));
+						if (entry.getValue().getClass().equals(Boolean.class))
+							result.add(entry.getKey(), new JsonPrimitive((Boolean) entry.getValue()));
+						if (entry.getValue().getClass().equals(Number.class))
+							result.add(entry.getKey(), new JsonPrimitive((Number) entry.getValue()));
+						if (entry.getValue().getClass().equals(Character.class))
+							result.add(entry.getKey(), new JsonPrimitive((Character) entry.getValue()));
+					}
+				}
+				return result;
+			}
+		});
         return builder.create();
     }
 

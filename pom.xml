@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.github.oohira</groupId>
     <artifactId>intercom-java</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
     <name>intercom-java</name>
     <description>Java client library for Intercom web service</description>
