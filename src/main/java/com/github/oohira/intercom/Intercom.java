@@ -120,8 +120,14 @@ public class Intercom {
 							result.add(entry.getKey(), new JsonPrimitive((Boolean) entry.getValue()));
 						if (entry.getValue().getClass().equals(Number.class))
 							result.add(entry.getKey(), new JsonPrimitive((Number) entry.getValue()));
+						if (entry.getValue().getClass().equals(Integer.class))
+							result.add(entry.getKey(), new JsonPrimitive((Integer) entry.getValue()));
+						if (entry.getValue().getClass().equals(Float.class))
+							result.add(entry.getKey(), new JsonPrimitive((Float) entry.getValue()));
 						if (entry.getValue().getClass().equals(Character.class))
 							result.add(entry.getKey(), new JsonPrimitive((Character) entry.getValue()));
+						if (entry.getValue().getClass().equals(Date.class))
+							result.add(entry.getKey(), new JsonPrimitive(((Date) entry.getValue()).getTime() / 1000));
 					}
 				}
 				return result;
