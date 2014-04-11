@@ -155,8 +155,9 @@ public class UserTest {
         company.setId("6");
         company.setName("Intercom");
 		HashMap<String, Object> customParams = new HashMap<String, Object>();
+		customParams.put("last_plan_change", new Date(1270000000L * 1000));
 		customParams.put("email", "jhon@doe.com");
-		customParams.put("dale", 15);
+		customParams.put("members", 2);
 		company.setCustomData(customParams);
         user.setCompanies(new Company[]{company});
 
@@ -174,6 +175,6 @@ public class UserTest {
                 "}," +
                 "\"last_seen_ip\":\"1.2.3.4\"," +
                 "\"last_seen_user_agent\":\"ie6\"," +
- "\"companies\":[{\"id\":\"6\",\"name\":\"Intercom\",\"email\":\"jhon@doe.com\"}]}"));
+ "\"companies\":[{\"id\":\"6\",\"name\":\"Intercom\",\"last_plan_change\":1270000000,\"email\":\"jhon@doe.com\",\"members\":2}]}"));
     }
 }
