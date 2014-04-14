@@ -114,6 +114,8 @@ public class Intercom {
 				Map<String, Object> customData = company.getCustomData();
 				if (customData != null) {
 					for (Map.Entry<String, Object> entry : customData.entrySet()) {
+						if (entry.getValue() == null)
+							continue;
 						if (entry.getValue().getClass().equals(String.class))
 							result.add(entry.getKey(), new JsonPrimitive((String) entry.getValue()));
 						if (entry.getValue().getClass().equals(Boolean.class))

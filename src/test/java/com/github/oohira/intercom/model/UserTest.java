@@ -158,6 +158,7 @@ public class UserTest {
 		customParams.put("last_plan_change", new Date(1270000000L * 1000));
 		customParams.put("email", "jhon@doe.com");
 		customParams.put("members", 2);
+		customParams.put("null_value", null);
 		company.setCustomData(customParams);
         user.setCompanies(new Company[]{company});
 
