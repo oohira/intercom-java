@@ -499,7 +499,8 @@ public class Intercom {
         if (this.appId != null && this.apiKey != null) {
             String str = this.appId + ":" + this.apiKey;
 			try {
-				return "Basic " + Base64.encodeBase64String(str.getBytes("UTF-8"));
+				String auth = "Basic " + Base64.encodeBase64String(str.getBytes("UTF-8")).replaceAll("(\\r|\\n)", "");
+				return auth;
 			} catch (UnsupportedEncodingException e) {
 				System.err.println("Error encoding basic authentication string.");
 				e.printStackTrace();
