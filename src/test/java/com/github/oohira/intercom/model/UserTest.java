@@ -154,6 +154,12 @@ public class UserTest {
         Company company = new Company();
         company.setId("6");
         company.setName("Intercom");
+		HashMap<String, Object> customParams = new HashMap<String, Object>();
+		customParams.put("last_plan_change", new Date(1270000000L * 1000));
+		customParams.put("email", "jhon@doe.com");
+		customParams.put("members", 2);
+		customParams.put("null_value", null);
+		company.setCustomData(customParams);
         user.setCompanies(new Company[]{company});
 
         String json = intercom.serialize(user);
@@ -170,6 +176,6 @@ public class UserTest {
                 "}," +
                 "\"last_seen_ip\":\"1.2.3.4\"," +
                 "\"last_seen_user_agent\":\"ie6\"," +
-                "\"companies\":[{\"id\":\"6\",\"name\":\"Intercom\"}]}"));
+ "\"companies\":[{\"id\":\"6\",\"name\":\"Intercom\",\"last_plan_change\":1270000000,\"email\":\"jhon@doe.com\",\"members\":2}]}"));
     }
 }
