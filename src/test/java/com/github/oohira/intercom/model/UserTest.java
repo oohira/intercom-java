@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -154,6 +155,11 @@ public class UserTest {
         Company company = new Company();
         company.setId("6");
         company.setName("Intercom");
+        Map<String, Object> customParams = new LinkedHashMap<String, Object>();
+        customParams.put("last_plan_changed_at", new Date(1270000000L * 1000));
+        customParams.put("email", "jane.doe@example.com");
+        customParams.put("members", 2);
+        company.setCustomData(customParams);
         user.setCompanies(new Company[]{company});
 
         String json = intercom.serialize(user);
@@ -170,6 +176,12 @@ public class UserTest {
                 "}," +
                 "\"last_seen_ip\":\"1.2.3.4\"," +
                 "\"last_seen_user_agent\":\"ie6\"," +
-                "\"companies\":[{\"id\":\"6\",\"name\":\"Intercom\"}]}"));
+                "\"companies\":[{" +
+                "\"id\":\"6\"," +
+                "\"name\":\"Intercom\"," +
+                "\"last_plan_changed_at\":1270000000," +
+                "\"email\":\"jane.doe@example.com\"," +
+                "\"members\":2" +
+                "}]}"));
     }
 }

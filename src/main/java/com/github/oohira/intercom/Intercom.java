@@ -1,5 +1,6 @@
 package com.github.oohira.intercom;
 
+import com.github.oohira.intercom.model.Company;
 import com.github.oohira.intercom.model.ErrorResponse;
 import com.github.oohira.intercom.model.Impression;
 import com.github.oohira.intercom.model.Note;
@@ -12,10 +13,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.BufferedReader;
@@ -47,6 +50,7 @@ public class Intercom {
     private static final String NOTES_API_URL = API_ENDPOINT_URL + "/users/notes";
     private static final String IMPRESSIONS_API_URL = API_ENDPOINT_URL + "/users/impressions";
     private static final String TAGGING_API_URL = API_ENDPOINT_URL + "/tags";
+    private static final String COMPANIES_API_URL = API_ENDPOINT_URL + "/companies";
 
     private static final String DEBUG_KEY = "intercom.debug";
     private static final Logger LOGGER = Logger.getLogger(Intercom.class.getName());
@@ -93,6 +97,24 @@ public class Intercom {
             @Override
             public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
                 return new JsonPrimitive(src.getTime() / 1000);
+            }
+        });
+        builder.registerTypeAdapter(Company.class, new JsonSerializer<Company>() {
+            @Override
+            public JsonElement serialize(Company company, Type typeOfSrc, JsonSerializationContext context) {
+                JsonObject result = new JsonObject();
+                result.add("id", context.serialize(company.getId()));
+                result.add("name", context.serialize(company.getName()));
+                result.add("created_at", context.serialize(company.getCreatedAt()));
+                result.add("plan", context.serialize(company.getPlan()));
+                result.add("monthly_spend", context.serialize(company.getMonthlySpend()));
+                Map<String, Object> customData = company.getCustomData();
+                if (customData != null) {
+                    for (String key : customData.keySet()) {
+                        result.add(key, context.serialize(customData.get(key)));
+                    }
+                }
+                return result;
             }
         });
         return builder.create();
@@ -346,6 +368,23 @@ public class Intercom {
         for (String email : emails) {
             deleteUserByEmail(email);
         }
+    }
+
+    /**
+     * Retrieves a company.
+     *
+     * NOTE: This company retrieval API is not documented in official.
+     *
+     * @param companyId an unique identifier for the company.
+     * @return the retrieved company.
+     * @throws IntercomException when some error occurred.
+     */
+    public Company getCompanyById(final String companyId) throws IntercomException {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", companyId);
+        String response = httpGet(COMPANIES_API_URL, params);
+
+        return deserialize(response, Company.class);
     }
 
     /**
