@@ -50,6 +50,7 @@ public class Intercom {
     private static final String NOTES_API_URL = API_ENDPOINT_URL + "/users/notes";
     private static final String IMPRESSIONS_API_URL = API_ENDPOINT_URL + "/users/impressions";
     private static final String TAGGING_API_URL = API_ENDPOINT_URL + "/tags";
+    private static final String COMPANIES_API_URL = API_ENDPOINT_URL + "/companies";
 
     private static final String DEBUG_KEY = "intercom.debug";
     private static final Logger LOGGER = Logger.getLogger(Intercom.class.getName());
@@ -367,6 +368,23 @@ public class Intercom {
         for (String email : emails) {
             deleteUserByEmail(email);
         }
+    }
+
+    /**
+     * Retrieves a company.
+     *
+     * NOTE: This company retrieval API is not documented in official.
+     *
+     * @param companyId an unique identifier for the company.
+     * @return the retrieved company.
+     * @throws IntercomException when some error occurred.
+     */
+    public Company getCompanyById(final String companyId) throws IntercomException {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", companyId);
+        String response = httpGet(COMPANIES_API_URL, params);
+
+        return deserialize(response, Company.class);
     }
 
     /**

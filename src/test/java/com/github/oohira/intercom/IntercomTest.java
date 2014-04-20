@@ -50,8 +50,20 @@ public class IntercomTest {
             Company company = new Company();
             company.setId("company" + i);
             company.setName("Company " + i);
+            Map<String, Object> companyCustomData = new HashMap<String, Object>();
+            companyCustomData.put("company_custom_data_1", "sample");
+            companyCustomData.put("company_custom_data_2", 77);
+            company.setCustomData(companyCustomData);
             user.setCompanies(new Company[]{company});
             this.intercom.createUser(user);
+        }
+        {
+            for (String tagName : new String[]{"Tag1", "Tag2", "New Tag"}) {
+                Tag tag = this.intercom.getTag(tagName);
+                tag.setUserIds(new String[]{"user1", "user2", "user3"});
+                tag.setTagOrUntag("untag");
+                this.intercom.updateTag(tag);
+            }
         }
         {
             Tag tag = new Tag();
@@ -189,11 +201,12 @@ public class IntercomTest {
         assertThat(user.getLastImpressionAt(), is(new Date(1300000000L * 1000)));
         assertThat((String)user.getCustomData().get("custom_data_1"), is("test"));
         assertThat((Double)user.getCustomData().get("custom_data_2"), is(7.0));
-        assertThat(user.getSessionCount(), is(0L));
+        assertThat(user.getSessionCount() >= 0, is(true));
         assertThat(user.getLastSeenIp(), is("192.168.0.1"));
         assertThat(user.getLastSeenUserAgent(), is("Intercom Java User Agent"));
         assertThat(user.getAvatarUrl(), is(nullValue()));
         assertThat(user.isUnsubscribedFromEmails(), is(false));
+        assertThat(user.getCompanyIds()[0], is("company1"));
     }
 
     @Test
@@ -212,6 +225,7 @@ public class IntercomTest {
         assertThat(user.getLastSeenUserAgent(), is("Intercom Java User Agent"));
         assertThat(user.getAvatarUrl(), is(nullValue()));
         assertThat(user.isUnsubscribedFromEmails(), is(false));
+        assertThat(user.getCompanyIds()[0], is("company2"));
     }
 
     @Test
@@ -243,7 +257,6 @@ public class IntercomTest {
         assertThat((String)created.getCustomData().get("custom_data_1"), is("hoge"));
         assertThat((Double)created.getCustomData().get("custom_data_2"), is(777.0));
         assertThat(created.getSocialProfiles().length, is(0));
-        assertThat(created.getLocationData(), is(nullValue()));
         assertThat(created.getSessionCount(), is(0L));
         assertThat(created.getLastSeenIp(), is("1.2.3.4"));
         assertThat(created.getLastSeenUserAgent(), is("ie6"));
@@ -294,6 +307,15 @@ public class IntercomTest {
         User deleted2 = this.intercom.deleteUserByEmail("user2@example.com");
         assertThat(deleted2.getUserId(), is("user2"));
         assertThat(this.intercom.getUserCount(), is(1));
+    }
+
+    @Test
+    public void getCompanyById() {
+        Company company = this.intercom.getCompanyById("company1");
+        assertThat(company.getId(), is("company1"));
+        assertThat(company.getName(), is("Company 1"));
+        assertThat((String) company.getCustomData().get("company_custom_data_1"), is("sample"));
+        assertThat((Double) company.getCustomData().get("company_custom_data_2"), is(77.0));
     }
 
     @Test
