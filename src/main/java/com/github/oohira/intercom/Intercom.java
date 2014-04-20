@@ -98,41 +98,24 @@ public class Intercom {
                 return new JsonPrimitive(src.getTime() / 1000);
             }
         });
-		builder.registerTypeAdapter(Company.class, new JsonSerializer<Company>() {
-			@Override
-			public JsonElement serialize(Company company, Type arg1, JsonSerializationContext arg2) {
-				JsonObject result = new JsonObject();
-				result.add("id", new JsonPrimitive(company.getId()));
-				if (company.getName() != null)
-					result.add("name", new JsonPrimitive(company.getName()));
-				if (company.getCreatedAt() != null)
-					result.add("created_at", new JsonPrimitive(company.getCreatedAt().getTime() / 1000));
-				if (company.getPlan() != null)
-					result.add("plan", new JsonPrimitive(company.getPlan()));
-				if (company.getMonthlySpend() != null)
-					result.add("monthly_spend", new JsonPrimitive(company.getMonthlySpend()));
-				Map<String, Object> customData = company.getCustomData();
-				if (customData != null) {
-					for (Map.Entry<String, Object> entry : customData.entrySet()) {
-						if (entry.getValue().getClass().equals(String.class))
-							result.add(entry.getKey(), new JsonPrimitive((String) entry.getValue()));
-						if (entry.getValue().getClass().equals(Boolean.class))
-							result.add(entry.getKey(), new JsonPrimitive((Boolean) entry.getValue()));
-						if (entry.getValue().getClass().equals(Number.class))
-							result.add(entry.getKey(), new JsonPrimitive((Number) entry.getValue()));
-						if (entry.getValue().getClass().equals(Integer.class))
-							result.add(entry.getKey(), new JsonPrimitive((Integer) entry.getValue()));
-						if (entry.getValue().getClass().equals(Float.class))
-							result.add(entry.getKey(), new JsonPrimitive((Float) entry.getValue()));
-						if (entry.getValue().getClass().equals(Character.class))
-							result.add(entry.getKey(), new JsonPrimitive((Character) entry.getValue()));
-						if (entry.getValue().getClass().equals(Date.class))
-							result.add(entry.getKey(), new JsonPrimitive(((Date) entry.getValue()).getTime() / 1000));
-					}
-				}
-				return result;
-			}
-		});
+        builder.registerTypeAdapter(Company.class, new JsonSerializer<Company>() {
+            @Override
+            public JsonElement serialize(Company company, Type typeOfSrc, JsonSerializationContext context) {
+                JsonObject result = new JsonObject();
+                result.add("id", context.serialize(company.getId()));
+                result.add("name", context.serialize(company.getName()));
+                result.add("created_at", context.serialize(company.getCreatedAt()));
+                result.add("plan", context.serialize(company.getPlan()));
+                result.add("monthly_spend", context.serialize(company.getMonthlySpend()));
+                Map<String, Object> customData = company.getCustomData();
+                if (customData != null) {
+                    for (String key : customData.keySet()) {
+                        result.add(key, context.serialize(customData.get(key)));
+                    }
+                }
+                return result;
+            }
+        });
         return builder.create();
     }
 
