@@ -12,7 +12,7 @@ This is just a tiny wrapper around Intercom API, please see [Intercom API Docume
 <dependency>
    <groupId>com.github.oohira</groupId>
    <artifactId>intercom-java</artifactId>
-   <version>0.0.1</version>
+   <version>0.0.2</version>
 </dependency>
 ```
 
