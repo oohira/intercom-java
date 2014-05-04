@@ -11,9 +11,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -40,7 +40,7 @@ public class IntercomTest {
             user.setEmail("user" + i + "@example.com");
             user.setName("User " + i);
             user.setCreatedAt(new Date(1270000000L * 1000));
-            Map<String, Object> customData = new HashMap<String, Object>();
+            Map<String, Object> customData = new LinkedHashMap<String, Object>();
             customData.put("custom_data_1", "test");
             customData.put("custom_data_2", 7);
             user.setCustomData(customData);
@@ -50,7 +50,7 @@ public class IntercomTest {
             Company company = new Company();
             company.setId("company" + i);
             company.setName("Company " + i);
-            Map<String, Object> companyCustomData = new HashMap<String, Object>();
+            Map<String, Object> companyCustomData = new LinkedHashMap<String, Object>();
             companyCustomData.put("company_custom_data_1", "sample");
             companyCustomData.put("company_custom_data_2", 77);
             company.setCustomData(companyCustomData);
@@ -235,7 +235,7 @@ public class IntercomTest {
         user.setEmail("new.user@example.com");
         user.setName("New User");
         user.setCreatedAt(new Date(1270000000L * 1000));
-        Map<String, Object> customData = new HashMap<String, Object>();
+        Map<String, Object> customData = new LinkedHashMap<String, Object>();
         customData.put("custom_data_1", "hoge");
         customData.put("custom_data_2", 777);
         user.setCustomData(customData);
@@ -272,7 +272,7 @@ public class IntercomTest {
         user.setName("Updated User");
         Date newDate = new Date(1400000000L * 1000);
         user.setLastImpressionAt(newDate);
-        Map<String, Object> customData = new HashMap<String, Object>();
+        Map<String, Object> customData = new LinkedHashMap<String, Object>();
         customData.put("custom_data_1", "updated");
         user.setCustomData(customData);
 

@@ -33,7 +33,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -215,7 +215,7 @@ public class Intercom {
     }
 
     UserCollection getUsers(final int page, final String tagName) throws IntercomException {
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new LinkedHashMap<String, String>();
         params.put("page", String.valueOf(page));
         if (this.perPage != null) {
             params.put("per_page", this.perPage.toString());
@@ -252,7 +252,7 @@ public class Intercom {
      *     Intercom API Document: Getting a User</a>
      */
     public User getUserById(final String userId) throws IntercomException {
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new LinkedHashMap<String, String>();
         params.put("user_id", userId);
         String response = httpGet(USERS_API_URL, params);
 
@@ -269,7 +269,7 @@ public class Intercom {
      *     Intercom API Document: Getting a User</a>
      */
     public User getUserByEmail(final String email) throws IntercomException {
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new LinkedHashMap<String, String>();
         params.put("email", email);
         String response = httpGet(USERS_API_URL, params);
 
@@ -380,7 +380,7 @@ public class Intercom {
      * @throws IntercomException when some error occurred.
      */
     public Company getCompanyById(final String companyId) throws IntercomException {
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new LinkedHashMap<String, String>();
         params.put("id", companyId);
         String response = httpGet(COMPANIES_API_URL, params);
 
@@ -397,7 +397,7 @@ public class Intercom {
      *     Intercom API Documentation: Getting a Tag</a>
      */
     public Tag getTag(final String name) throws IntercomException {
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new LinkedHashMap<String, String>();
         params.put("name", name);
         String response = httpGet(TAGGING_API_URL, params);
 

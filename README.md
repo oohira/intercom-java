@@ -49,7 +49,7 @@ intercom.createUser(user);
 
 ```java
 User user = intercom.getUserById("abc123");
-Map<String, Object> customData = new HashMap<String, Object>();
+Map<String, Object> customData = new LinkedHashMap<String, Object>();
 customData.put("custom_data_1", "test");
 customData.put("custom_data_2", 7);
 user.setCustomData(customData);

@@ -4,7 +4,6 @@ import com.github.oohira.intercom.Intercom;
 import org.junit.Test;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -144,7 +143,7 @@ public class UserTest {
         user.setEmail("john.doe@example.com");
         user.setName("John Doe");
         user.setCreatedAt(new Date(1270000000L * 1000));
-        Map<String, Object> customData = new HashMap<String, Object>();
+        Map<String, Object> customData = new LinkedHashMap<String, Object>();
         customData.put("app_name", "Genesis");
         customData.put("monthly_spend", 155.5);
         customData.put("team_mates", 7);
@@ -170,9 +169,9 @@ public class UserTest {
                 "\"created_at\":1270000000," +
                 "\"last_impression_at\":1300000000," +
                 "\"custom_data\":{" +
-                "\"team_mates\":7," +
                 "\"app_name\":\"Genesis\"," +
-                "\"monthly_spend\":155.5" +
+                "\"monthly_spend\":155.5," +
+                "\"team_mates\":7" +
                 "}," +
                 "\"last_seen_ip\":\"1.2.3.4\"," +
                 "\"last_seen_user_agent\":\"ie6\"," +
