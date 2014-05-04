@@ -95,9 +95,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.directory.studio</groupId>
-            <artifactId>org.apache.commons.codec</artifactId>
-            <version>1.8</version>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.9</version>
         </dependency>
     </dependencies>
 </project>
