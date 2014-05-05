@@ -2,6 +2,7 @@ package com.github.oohira.intercom;
 
 import com.github.oohira.intercom.model.Company;
 import com.github.oohira.intercom.model.ErrorResponse;
+import com.github.oohira.intercom.model.Event;
 import com.github.oohira.intercom.model.Impression;
 import com.github.oohira.intercom.model.Note;
 import com.github.oohira.intercom.model.Tag;
@@ -45,12 +46,15 @@ import java.util.logging.Logger;
  * @author oohira
  */
 public class Intercom {
-    private static final String API_ENDPOINT_URL = "https://api.intercom.io/v1";
-    private static final String USERS_API_URL = API_ENDPOINT_URL + "/users";
-    private static final String NOTES_API_URL = API_ENDPOINT_URL + "/users/notes";
-    private static final String IMPRESSIONS_API_URL = API_ENDPOINT_URL + "/users/impressions";
-    private static final String TAGGING_API_URL = API_ENDPOINT_URL + "/tags";
-    private static final String COMPANIES_API_URL = API_ENDPOINT_URL + "/companies";
+    private static final String API_ENDPOINT_URL = "https://api.intercom.io";
+    private static final String API_V1_ENDPOINT_URL = API_ENDPOINT_URL + "/v1";
+    private static final String USERS_API_URL = API_V1_ENDPOINT_URL + "/users";
+    private static final String NOTES_API_URL = API_V1_ENDPOINT_URL + "/users/notes";
+    private static final String IMPRESSIONS_API_URL = API_V1_ENDPOINT_URL + "/users/impressions";
+    private static final String TAGGING_API_URL = API_V1_ENDPOINT_URL + "/tags";
+    private static final String COMPANIES_API_URL = API_V1_ENDPOINT_URL + "/companies";
+    // NOTE: Events API has no 'v1' path segment.
+    private static final String EVENTS_API_URL = API_ENDPOINT_URL + "/events";
 
     private static final String DEBUG_KEY = "intercom.debug";
     private static final Logger LOGGER = Logger.getLogger(Intercom.class.getName());
@@ -469,6 +473,19 @@ public class Intercom {
 
     }
 
+    /**
+     * Tracks an event.
+     *
+     * @param event an event object.
+     * @throws IntercomException when some error occurred.
+     * @see <a href="http://doc.intercom.io/api/#submitting-events">
+     *     Intercom API Documentation: Submitting Events</a>
+     */
+    public void trackEvent(final Event event) throws IntercomException {
+        String json = serialize(event);
+        httpPost(EVENTS_API_URL, json);
+    }
+
     private String httpGet(final String url, final Map<String, String> params) throws IntercomException {
         try {
             StringBuilder buf = new StringBuilder();
@@ -529,7 +546,8 @@ public class Intercom {
 
             int statusCode = http.getResponseCode();
             if (statusCode == HttpURLConnection.HTTP_OK ||
-                    statusCode == HttpURLConnection.HTTP_CREATED) {
+                    statusCode == HttpURLConnection.HTTP_CREATED ||
+                    statusCode == HttpURLConnection.HTTP_ACCEPTED) {
                 String response = getResponse(http.getInputStream());
                 log(Level.INFO, response);
                 return response;

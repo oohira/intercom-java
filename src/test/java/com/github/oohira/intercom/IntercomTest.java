@@ -1,6 +1,7 @@
 package com.github.oohira.intercom;
 
 import com.github.oohira.intercom.model.Company;
+import com.github.oohira.intercom.model.Event;
 import com.github.oohira.intercom.model.Impression;
 import com.github.oohira.intercom.model.Note;
 import com.github.oohira.intercom.model.Tag;
@@ -386,6 +387,39 @@ public class IntercomTest {
         User user = this.intercom.getUserById("user1");
         assertThat(user.getLastSeenIp(), is("127.0.0.1"));
         assertThat(user.getLastSeenUserAgent(), is("Anonymous User Agent"));
+    }
+
+    @Test
+    public void trackEvent() {
+        Event event = new Event();
+        event.setEventName("invited-friend");
+        event.setUserId("user1");
+        event.setCreatedAt(new Date());
+
+        this.intercom.trackEvent(event);
+    }
+
+    @Test
+    public void trackEventWithMetadata() {
+        Event event = new Event();
+        event.setEventName("ordered-item");
+        event.setUserId("user1");
+        event.setCreatedAt(new Date());
+        Map<String, Object> metadata = new LinkedHashMap<String, Object>();
+        metadata.put("load", 3.67);
+        metadata.put("order_date", new Date(1300000000L * 1000));
+        Map<String, String> orderNumber = new LinkedHashMap<String, String>(); // Rich Link
+        orderNumber.put("url", "https://example.com/orders/3434-3434");
+        orderNumber.put("value", "3434-3434");
+        metadata.put("order_number", orderNumber);
+        metadata.put("stripe_invoice", "inv_3434343434");
+        Map<String, Object> price = new LinkedHashMap<String, Object>(); // Monetary Amount
+        price.put("amount", 34999);
+        price.put("currency", "eur");
+        metadata.put("price", price);
+        event.setMetadata(metadata);
+
+        this.intercom.trackEvent(event);
     }
 
     @Test
