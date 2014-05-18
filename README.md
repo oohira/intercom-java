@@ -96,6 +96,20 @@ impression.setUserIp("127.0.0.1");
 intercom.createImpression(impression);
 ```
 
+#### Events
+
+```java
+Event event = new Event();
+event.setEventName("invited-friend");
+event.setUserId("abc123");
+event.setCreatedAt(new Date());
+Map<String, Object> metadata = new LinkedHashMap<String, Object>();
+metadata.put("invitee_email", "jane.doe@example.com");
+metadata.put("invite_code", "ADDAFRIEND");
+event.setMetadata(metadata);
+this.intercom.trackEvent(event);
+```
+
 ## Limitations
 
 * Message Threads API is not supported yet. Now implementing.
