@@ -107,7 +107,7 @@ Map<String, Object> metadata = new LinkedHashMap<String, Object>();
 metadata.put("invitee_email", "jane.doe@example.com");
 metadata.put("invite_code", "ADDAFRIEND");
 event.setMetadata(metadata);
-this.intercom.trackEvent(event);
+intercom.trackEvent(event);
 ```
 
 ## Limitations
