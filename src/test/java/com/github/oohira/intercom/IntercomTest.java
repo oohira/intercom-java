@@ -460,4 +460,21 @@ public class IntercomTest {
             assertThat(e.getErrorResponse().getStatusCode(), is(404));
         }
     }
+
+    @Test
+    public void notFoundInEventAPI_404() {
+        try {
+            Event event = new Event();
+            event.setEventName("invited-friend");
+            event.setUserId("UnknownUser");
+            event.setCreatedAt(new Date());
+            this.intercom.trackEvent(event);
+            fail("IntercomException must be raised for tracking an event of unknown user.");
+        } catch (IntercomException e) {
+            assertThat(e.getMessage(), is("not_found: User Not Found"));
+            assertThat(e.getErrorResponse().getType(), is("not_found"));
+            assertThat(e.getErrorResponse().getMessage(), is("User Not Found"));
+            assertThat(e.getErrorResponse().getStatusCode(), is(404));
+        }
+    }
 }

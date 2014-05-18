@@ -549,11 +549,11 @@ public class Intercom {
                     statusCode == HttpURLConnection.HTTP_CREATED ||
                     statusCode == HttpURLConnection.HTTP_ACCEPTED) {
                 String response = getResponse(http.getInputStream());
-                log(Level.INFO, response);
+                log(Level.INFO, response + " " + statusCode);
                 return response;
             } else {
                 String response = getResponse(http.getErrorStream());
-                log(Level.WARNING, response);
+                log(Level.WARNING, response + " " + statusCode);
                 ErrorResponse error = deserialize(response, ErrorResponse.class);
                 error.setStatusCode(statusCode);
                 throw new IntercomException(error);
