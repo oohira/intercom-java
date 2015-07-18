@@ -2,9 +2,19 @@ intercom-java
 =============
 
 A Java client library for [Intercom web service](https://www.intercom.io/).
-This is just a tiny wrapper around Intercom API, please see [Intercom API Documentation](https://api.intercom.io/docs) for detail.
+This is just a tiny wrapper around Intercom API v1, please see [Intercom API Documentation](https://api.intercom.io/docs) for detail.
 
 [![Build Status](https://travis-ci.org/oohira/intercom-java.png?branch=master)](https://travis-ci.org/oohira/intercom-java)
+
+## ATTENTION
+
+Intercom API v1 was deprecated. You can use an official Java library for Intercom API v2.
+
+* https://github.com/intercom/intercom-java
+
+> The V1 API is deprecated as of June 17th 2014, and no longer available for new apps after 15th January 2015.
+>
+> Deprecation means the V1 API and its clients are no longer actively developed. The V1 API will be retired in the future. As a result we recommend and encourage you to move to the new Intercom API, which is actively supported and developed. The new Intercom API can be considered a superset of the V1 API - as well as matching its functionality, it provides a wealth of other data and operations.
 
 ## Installation
 
