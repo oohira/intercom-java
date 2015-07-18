@@ -534,7 +534,7 @@ public class Intercom {
             if (method.equals("POST") || method.equals("PUT") || method.equals("DELETE")) {
                 http.setDoOutput(true);
                 http.setRequestProperty("Content-Type", "application/json");
-                http.setRequestProperty("Content-Length", String.valueOf(body));
+                //NOTE: Content-Length is automatically set by Java HTTP library.
             }
             http.connect();
 
