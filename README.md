@@ -22,7 +22,7 @@ Intercom API v1 was deprecated. You can use an official Java library for Interco
 <dependency>
    <groupId>com.github.oohira</groupId>
    <artifactId>intercom-java</artifactId>
-   <version>0.0.3</version>
+   <version>0.0.4</version>
 </dependency>
 ```
 
